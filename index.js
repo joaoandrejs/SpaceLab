@@ -5,7 +5,7 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 
-let token = config.token;
+let token = process.env.TOKEN;
 
 fs.readdir("./comandos/", (err, files) => {
     if (err) console.error(err);
