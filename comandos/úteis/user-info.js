@@ -69,7 +69,7 @@ exports.run = (client, message, args) => {
     .addField("Entrou aqui em", `\`${moment(member.joinedAt).format("LLL")}\``)
     .addField("Conta criada em",`\`${moment(member.user.createdAt).format("LLL")}\``,true)
     .addField("Permissões", `${permissions.join(", ")}`)
-    .addField(`Cargos [${member.roles.filter(r => r.id !== message.guild.id).map(a => `\`${a.name}\``).length}]`,`${member.roles.filter(r => r.id !== message.guild.id).map(roles => `<@&${roles.id}>`).join(", ") || "Esse membro não possui cargos."}`,true)
+    .addField(`Cargos [${member.roles.cache.filter(r => r.id !== message.guild.id).map(a => `\`${a.name}\``).length}]`,`${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `<@&${roles.id}>`).join(", ") || "Esse membro não possui cargos."}`,true)
     .setThumbnail(member.user.displayAvatarURL())
     .setColor("#0000");
 
