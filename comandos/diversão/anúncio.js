@@ -5,7 +5,7 @@ exports.run = (client, message, args) => { // setando a base
  // requisitando uma permissao, no caso, 'ADMINISTRADOR'
     if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply(`<:space_x:714329904547889172> » Você deve possuir a permissão de: \`ADMINISTRATOR\` para utilizar este comando.`) // caso o autor nao possua, vamos dar o erro
              
-  const embed1 = new Discord.RichEmbed()
+  const embed1 = new Discord.MessageEmbed()
   .setDescription(`digite o título desse anúncio.`)
   .setColor(color);
   
@@ -14,7 +14,7 @@ exports.run = (client, message, args) => { // setando a base
                  .on('collect', c => { // iniciando um evento
                    titulo = c.content // puxando o conteudo que o membro digitou
              
-                   const embed2 = new Discord.RichEmbed()
+                   const embed2 = new Discord.MessageEmbed()
                    .setDescription(`digite a mensagem desse anúncio.`) 
                    .setColor(color);
                    
@@ -23,7 +23,7 @@ exports.run = (client, message, args) => { // setando a base
                    .on('collect', c => { // mais um evento
                        mensagem = c.content // um conteudo da mensagem
 
-                            let embed = new Discord.RichEmbed()
+                            let embed = new Discord.MessageEmbed()
 
                             .setTitle(titulo)
                             .setDescription(mensagem)

@@ -4,10 +4,10 @@ var Jimp = require("jimp"); // puxando o NPM jimp (instale utilizando: npm i jim
 exports.run = async (client, message, args) => { // setando a base com async
 
     if (message.content.split(' ').slice(1).join(' ').length < 1) { // definindo um argumento | caso os caracteres sejam menor q um
-        message.reply(`você precisa escrever a primeira palavra do bebê`) // caso o membro nao escreva algo para por na imagem
+        message.reply(`<:space_x:714329904547889172> » você precisa escrever a primeira palavra do bebê`) // caso o membro nao escreva algo para por na imagem
     } else { 
         if (message.content.split(' ').slice(1).join(' ').length > 50) { // caso os caracteres sejam maior que 50
-            message.reply(`você ultrapassou o limite de 50 caracteres. Você não quer uma edição feia ne?`)
+            message.reply(`<:space_x:714329904547889172> » você ultrapassou o limite de 50 caracteres.`)
         } else {
             if (message.member.hasPermission('ATTACH_FILES')) { // requisitando a permissao: ATTACH_FILES
                 var authorMessage = message
@@ -28,7 +28,7 @@ exports.run = async (client, message, args) => { // setando a base com async
                     })
                 })
             } else {
-                message.channel.send('Eu preciso da permissão de `ATTACH_FILES` para utilizar este comando.') // caso o bot nao possua permissao
+                message.channel.send('Você precisa da permissão de `ATTACH_FILES` para utilizar este comando.') // caso o bot nao possua permissao
             }
         }
     }

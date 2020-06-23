@@ -12,7 +12,7 @@ exports.run = (client, message, args) => {
         if (!result) return message.reply(`forneça uma cidade. Ex.: \`!clima rj\``)
         // caso o bot não encontre a cidade
         if (!result[0]) return message.reply(`desculpe, mas não encontrei essa cidade!`)
-        let embed = new Discord.RichEmbed()
+        let embed = new Discord.MessageEmbed()
             .setDescription(`**${result[0].location.name}**`)
             .addField(`**Temperatura**`, `${result[0].current.temperature}°C`)
             .addField(`**Sensação Térmica**`, `${result[0].current.feelslike}°C`)

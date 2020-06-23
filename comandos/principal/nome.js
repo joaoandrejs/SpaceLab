@@ -2,19 +2,24 @@ const Discord = require('discord.js');
 const db = require('quick.db');
 const config = require('../../config.json');
 
-exports.run = async (client, message, args) => {
+exports.run = (client, message, args) => {
+  //Este comando e a mesma do outro :)
   
+  let mensagem = args.slice(0).join(' ');
+  const erro = new Discord.MessageEmbed()
+  .setDescription(`Você deve inserir uma nova mensagem!`)
+  .setColor(config.color)
   
-  let member = await client.users.get(args[0])
-  if (!member) {
-    return message.channel.send('Vocẽ deve me indicar o id de um usuario valido!')
+  if (!mensagem) {
+    message.channel.send(erro)
   }
   
-  const embed = new Discord.RichEmbed()
-  .setDescription(`O usuario: ${member.tag} foi aprovado na botlist?`)
-  .setFooter(`${member.tag}`)
-  .setTimestamp()
-  .setColor(config.color);
+  let add = db.get(`add_${message.author.id}`);
+  if (add === null) return message.reply(`Você deve possuir um bot para alterar o nome!`);
+  
+  const embed = new Discord.MessageEmbed()
+  .setDescription(`Você deseja alterar o nome do seu bot para:\n ${mensagem}`)
+  .setColor(config.color)
   
   message.channel.send(embed).then(msg => {
 
@@ -30,12 +35,11 @@ exports.run = async (client, message, args) => {
       if (reaction.emoji.id === '708102263901782028') {
         msg.delete();
         
-        const embed = new Discord.RichEmbed()
-        .setDescription(`O usuario: ${member.tag} foi definido como aprovado!`)
+        const embed = new Discord.MessageEmbed()
+        .setDescription(`Nome do seu bot alterada com sucesso!\n\nUtilize SL!perfil novamente para ver a alteração`)
         .setColor(config.color);
-        message.channel.send(embed);
         
-        db.set(`add_${member.id}`, true)
+        db.set(`bot_${message.author.id}`, mensagem);
        } else {
          msg.delete()
          message.channel.send('Comando cancelado')
@@ -48,6 +52,6 @@ exports.run = async (client, message, args) => {
     })
 }
 exports.help = {
-  name: 'aprove',
-  aliases: ['aprovado']
+  name: 'nome',
+  aliases: []
 }

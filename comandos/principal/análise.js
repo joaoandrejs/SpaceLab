@@ -4,10 +4,10 @@ const db = require('quick.db');
 
 exports.run = (client, message, args) => {
 
-  let canal = message.guild.channels.get('722984356133732452') // ID do canal para onde iremos enviar a análise
+  let canal = message.guild.channels.cache.get('722984356133732452') // ID do canal para onde iremos enviar a análise
   
 // Agora, começa as funções then!
-  const embed1 = new Discord.RichEmbed()
+  const embed1 = new Discord.MessageEmbed()
   .setColor(color)
   .setDescription(`Para iniciarmos, qual o resultado dessa análise?`)
   
@@ -17,7 +17,7 @@ exports.run = (client, message, args) => {
       analise = c.content // o nome dessa coleta será 'analise'
       
 // Eu não preciso explicar tudo de novo :) Mesma coisa se repete!
-      const embed2 = new Discord.RichEmbed()
+      const embed2 = new Discord.MessageEmbed()
       .setColor(color)
       .setDescription(`Qual o nome do bot que será analisado?`)
       
@@ -26,7 +26,7 @@ exports.run = (client, message, args) => {
         .on('collect', c => {
           idbot = c.content
 
-          const embed3 = new Discord.RichEmbed()
+          const embed3 = new Discord.MessageEmbed()
           .setColor(color)
           .setDescription(`Qual **ID** do criador do bot.`)
           
@@ -35,7 +35,7 @@ exports.run = (client, message, args) => {
             .on('collect', c => {
               idauto = c.content
 
-              const embed4 = new Discord.RichEmbed()
+              const embed4 = new Discord.MessageEmbed()
               .setColor(color)
               .setDescription(`Você deseja continuar com a analise?\n**Não**\n**Sim**`)
               
@@ -44,7 +44,7 @@ exports.run = (client, message, args) => {
                 .on('collect', c => {
                   resu = c.content
 
-                  const embed5 = new Discord.RichEmbed()
+                  const embed5 = new Discord.MessageEmbed()
                   .setColor(color)
                   .setDescription(`<:SLcerto:708102263901782028> Envio cancelado com sucesso!`)
                   
@@ -54,7 +54,7 @@ exports.run = (client, message, args) => {
         
                   // Agora é uma coisa importante... Caso o usuário queira colocar uma nota a análise, iremos deixar disponível
 
-                    const embed6 = new Discord.RichEmbed()
+                    const embed6 = new Discord.MessageEmbed()
                   .setColor(color)
                   .setDescription(`Fase final! Caso queria deixar alguma nota sobre a análise, escreva abaixo, caso contrário, escreva **sem** para deixar sem nada.`)
                     
@@ -65,7 +65,7 @@ exports.run = (client, message, args) => {
                         
                         if (note === 'sem') { // Caso o usuário escreva 'sem', iremos deixar a embed sem nota
 
-                          let embed = new Discord.RichEmbed()
+                          let embed = new Discord.MessageEmbed()
 
                           .setTitle(`<:SLanalise:723070886491455518> Análise`)
                           .addField(`<:SLbot:723071000106762240> **Bot**`, `${idbot}`)
@@ -76,14 +76,14 @@ exports.run = (client, message, args) => {
 
                           canal.send(`<@${idauto}>`, embed) 
                           
-                          const embed7 = new Discord.RichEmbed()
+                          const embed7 = new Discord.MessageEmbed()
                           .setColor(color)
                           .setDescription(`<:SLcerto:708102263901782028> analise enviada!`)
                           
                           message.reply(embed7)
 
                         } else { // Caso ele escreva algo diferente de 'sem', iremos deixar com o que ele colocar
-                          let embedi = new Discord.RichEmbed()
+                          let embedi = new Discord.MessageEmbed()
 
                           .setTitle(`<:SLanalise:723070886491455518> Análise`)
                           .addField(`<:SLbot:723071000106762240> **Bot**`, `${idbot}`)
@@ -95,7 +95,7 @@ exports.run = (client, message, args) => {
 
                           canal.send(`<@${idauto}>`, embedi) // Enviando no canal que definimos
                           
-                          const embed7 = new Discord.RichEmbed()
+                          const embed7 = new Discord.MessageEmbed()
                           .setColor(color)
                           .setDescription(`<:SLcerto:708102263901782028> analise enviada!`)
                           

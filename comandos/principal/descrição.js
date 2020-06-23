@@ -3,20 +3,33 @@ const db = require("quick.db");
 const config = require("../../config.json");
 
 exports.run = (client, message, args) => {
+  
+  //Criando uma let para puxar toda mensagem que o usuario dizer...
   let mensagem = args.slice(0).join(" ");
-  const erro = new Discord.RichEmbed()
-    .setDescription(`Você deve inserir uma nova mensagem!`)
-    .setColor(config.color);
+  
+  //embed para se o usuario nao dizer nada...
+  const erro = new Discord.MessageEmbed()
+  .setDescription(`Você deve inserir uma nova mensagem!`)  
+  .setColor(config.color);
 
+  // Se não dizer nada...
   if (!mensagem) {
     message.channel.send(erro);
   }
 
-  const embed = new Discord.RichEmbed()
+  //Puxando na database se o usuario possui um bot dentro do servidor!
+  let add = db.get(`add_${message.author.id}`);
+  //E se ele não possuir o bot retornara:
+  if (add === null) return message.reply(`Você deve possuir um bot para alterar a descrição!`);
+  
+  //Enviando um embed para perguntar, (Para não alterar de uma vez)
+  const embed = new Discord.MessageEmbed()
     .setDescription(`Você deseja alterar a sua descrição para:\n\n ${mensagem}`)
     .setColor(config.color);
-
+  
+                          //mesma coisas dos outros comandos...
   message.channel.send(embed).then(msg => {
+    // Colocando os emojis
     msg.react("708102263901782028").then(() => msg.react("708102338807726092"));
 
     const filter = (reaction, user) => {
@@ -34,10 +47,8 @@ exports.run = (client, message, args) => {
         if (reaction.emoji.id === "708102263901782028") {
           msg.delete();
 
-          const embed = new Discord.RichEmbed()
-            .setDescription(
-              `Descrição alterada com sucesso!\n\nUtilize SL!perfil novamente para ver a alteração`
-            )
+          const embed = new Discord.MessageEmbed()
+            .setDescription(`Descrição alterada com sucesso!\n\nUtilize SL!perfil novamente para ver a alteração`)
             .setColor(config.color);
           message.channel.send(embed);
           db.set(`desc_${message.author.id}`, mensagem);
@@ -47,9 +58,9 @@ exports.run = (client, message, args) => {
         }
       })
       .catch(collected => {
-        // Lembra da 'then' collected? Pois é! Caso o usuário não clique em 30s, iremos declarar como cancelado
+        // Apos o tempo acabar...
         message.reply(
-          "o tempo para escolher excedeu! Tente utilizar novamente."
+          "O tempo de reações acabou!, utilize o comando novamente ;)"
         );
       });
   });

@@ -5,7 +5,7 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 
-let token = process.env.TOKEN;
+let token = config.token;
 
 fs.readdir("./comandos/", (err, files) => {
     if (err) console.error(err);
@@ -20,27 +20,14 @@ fs.readdir("./comandos/", (err, files) => {
     });
   });
 });
-fs.readdir("./comandos/bot/", (err, files) => {
+
+fs.readdir("./comandos/diversão/", (err, files) => {
     if (err) console.error(err);
 
   let arquivojs = files.filter(f => f.split(".").pop() == "js");
   arquivojs.forEach((f, i) => {
-    let props = require(`./comandos/bot/${f}`);
-    console.log(`${f} - BOTS INICIADOS`);
-    client.commands.set(props.help.name, props);
-    props.help.aliases.forEach(alias => {
-      client.aliases.set(alias, props.help.name);
-    });
-  });
-});
-
-fs.readdir("./comandos/entretenimento/", (err, files) => {
-    if (err) console.error(err);
-
-  let arquivojs = files.filter(f => f.split(".").pop() == "js");
-  arquivojs.forEach((f, i) => {
-    let props = require(`./comandos/entretenimento/${f}`);
-    console.log(`${f} - ENTRETERIMENTO INICIADO`);
+    let props = require(`./comandos/diversão/${f}`);
+    console.log(`${f} - DIVERSÃO INICIADO`);
     client.commands.set(props.help.name, props);
     props.help.aliases.forEach(alias => {
       client.aliases.set(alias, props.help.name);
@@ -55,6 +42,20 @@ fs.readdir("./comandos/moderação/", (err, files) => {
   arquivojs.forEach((f, i) => {
     let props = require(`./comandos/moderação/${f}`);
     console.log(`${f} - MODERAÇÃO INICIADO`);
+    client.commands.set(props.help.name, props);
+    props.help.aliases.forEach(alias => {
+      client.aliases.set(alias, props.help.name);
+    });
+  });
+});
+
+fs.readdir("./comandos/principal/", (err, files) => {
+    if (err) console.error(err);
+
+  let arquivojs = files.filter(f => f.split(".").pop() == "js");
+  arquivojs.forEach((f, i) => {
+    let props = require(`./comandos/principal/${f}`);
+    console.log(`${f} - BOTS INICIADOS`);
     client.commands.set(props.help.name, props);
     props.help.aliases.forEach(alias => {
       client.aliases.set(alias, props.help.name);

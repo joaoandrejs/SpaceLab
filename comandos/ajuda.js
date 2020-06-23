@@ -7,7 +7,7 @@ exports.run = (client, message, args) => { // setando a base
     message.reply('verifique suas mensagens privadas.')
 
 
-     const embed = new Discord.RichEmbed()
+     const embed = new Discord.MessageEmbed()
         .setTitle(`Space Ajuda!`)
         .setColor("GOLD")
         .setDescription('Seja muito bem vindo a minha central de ajuda. \n\n\n🔨 `Moderação` \n🔧 `Uteis` \n💳 `Entretenimento`\n🤖 `Bots`')
@@ -36,7 +36,7 @@ exports.run = (client, message, args) => { // setando a base
         const Back = msg.createReactionCollector(BackFilter);
 
         Bots.on('collect', r2 => {
-         const embed = new Discord.RichEmbed()
+         const embed = new Discord.MessageEmbed()
           .setTitle('🤖 BOTS')
           .addField(`\`${config.prefix}análise\``, `Faça a análise de um bot`)
           .addField(`\`${config.prefix}addbot\``, `Adicione o seu bot ao DiscordLab`)
@@ -45,7 +45,7 @@ exports.run = (client, message, args) => { // setando a base
         }) 
 
         Utilidades.on('collect', r2 => { // criando um evento, caso o membro clique nessa reação, e todos são iguais!
-            const embed = new Discord.RichEmbed()
+            const embed = new Discord.MessageEmbed()
                 .setTitle("🔧 ÚTEIS")
                 .addField(`\`${config.prefix}addemoji\``, `Adicione um emoji no servidor`)
                 .addField(`\`${config.prefix}botinfo\``, `Saiba mais sobre mim`)
@@ -56,13 +56,14 @@ exports.run = (client, message, args) => { // setando a base
                 .addField(`\`${config.prefix}lembrete\``, `Peça ajuda ao bot para lembrar você de algo`)
                 .addField(`\`${config.prefix}ontime\``, `Veja a quanto tempo o bot se encontra online`)
                 .addField(`\`${config.prefix}userinfo\``, `Confira algumas informações de um membro`)
+                .addField(`\`${config.prefix}sugestão\``, `Envie uma sugestão`)
                 .setColor("GOLD")
 
             msg.edit(embed);
         })
  
         Moderação.on('collect', r2 => {
-            const embed = new Discord.RichEmbed()
+            const embed = new Discord.MessageEmbed()
                 .setTitle("👮 MODERAÇÃO")
                 .addField(`\`${config.prefix}ban\``, `Aplique um banimento em um membro`)
                 .addField(`\`${config.prefix}clear\``, `Limpe indesejadas mensagens em um canal`)
@@ -75,7 +76,7 @@ exports.run = (client, message, args) => { // setando a base
         })
  
         Entretenimento.on('collect', r2 => {
-            const embed = new Discord.RichEmbed()
+            const embed = new Discord.MessageEmbed()
                 .setTitle("💳 ENTRETENIMENTO")
                 .addField(`\`${config.prefix}ascii\``, `Crie um texto em ASCII`)
                 .addField(`\`${config.prefix}avatar\``, `Amplie a foto de algum membro`)
@@ -86,14 +87,13 @@ exports.run = (client, message, args) => { // setando a base
                 .addField(`\`${config.prefix}roleta\``, `Brinque de roleta-russa`)
                 .addField(`\`${config.prefix}laranjo\``, `Crie seu próprio meme do Laranjo`)
                 .addField(`\`${config.prefix}servericon\``, `Amplie a foto do servidor`)
-                .addField(`\`${config.prefix}tweet\``, `Crie um falso tweet`)
                 .setColor("GOLD")
 
             msg.edit(embed);
         })
 
         Back.on('collect', r2 => {
-            const embed = new Discord.RichEmbed()
+            const embed = new Discord.MessageEmbed()
         .setTitle(`Space Ajuda!`)
         .setColor("GOLD")
         .setDescription('Seja muito bem vindo a minha central de ajuda. \n\n\n🔨 `Moderação` \n🔧 `Uteis` \n💳 `Entretenimento`\n🤖 `Bots`')

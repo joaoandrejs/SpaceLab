@@ -3,22 +3,31 @@ const config = require('../../config.json');
 const db = require('quick.db');
 
 exports.run = (client, message, args) => {
-  let member = message.author || message.mentions.users.first() // Se não mencionar nenhum usuario mostrara o saldo do autor.
+  let member = message.mentions.users.first() || message.author// Se não mencionar nenhum usuario mostrara o saldo do autor.
   
+  //Puxando o nome do bot setado...
   let bot = db.get(`bot_${member.id}`);
+  //Para não mostrar null no comando
   if (bot === null) bot = '`Não possui nenhum bot`';
   
+  //Puxando a descrição setada
   let descrição = db.get(`desc_${member.id}`);
+  //para não mostrar null no comando
   if (descrição === null) descrição = '`Nenhuma descrição`';
   
-  let prefixo = db.get(`prefix_${message.author.id}`);
+  //Puxando o prefixo que o usuario setou...
+  let prefixo = db.get(`prefix_${member.id}`);
+  //Para nao mostrar null no comando
   if (prefixo === null) prefixo = '`Nenhum prefixo`'
   
+  //Puxando se o usuario possui um bot no servidor...
   let add = db.get(`add_${member.id}`)
+  //Se for null ele mostraá false
   if (add === null) add = false;
   
+  //Se o usuario possuir um bot ele mostrára tudo certinho...
   if (add === true ) {
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
   .setTitle(`perfil de: ${member.username}`)
   .addField(`**BOT:**`, `${bot}`, true)
   .addField(`**Prefixo**`, `${prefixo}`, true)
@@ -39,8 +48,8 @@ exports.run = (client, message, args) => {
         const reaction = collected.first();
       
       if (reaction.emoji.name === '1️⃣') {
-        msg.delete()
-        const embed1 = new Discord.RichEmbed()
+         
+        const embed1 = new Discord.MessageEmbed()
         .setDescription(`Para alterar sua descrição utilize: \`${config.prefix}descrição [nova mensagem]\``)
         .setFooter('O mau uso deste comando pode resultar em ban ou warn')
         .setColor(config.color);
@@ -49,9 +58,9 @@ exports.run = (client, message, args) => {
         }
       
       if (reaction.emoji.name === '2️⃣') {
-        msg.delete()
+         
         
-        const embed1 = new Discord.RichEmbed()
+        const embed1 = new Discord.MessageEmbed()
         .setDescription(`Para alterar o prefixo do seu bot utilize: \`${config.prefix}prefixo [novo prefixo]\``)
         .setFooter('O mau uso deste comando pode resultar em ban ou warn')
         .setColor(config.color);
@@ -60,9 +69,9 @@ exports.run = (client, message, args) => {
         }
       
       if (reaction.emoji.name === '3️⃣') {
-        msg.delete()
+         
         
-        const embed1 = new Discord.RichEmbed()
+        const embed1 = new Discord.MessageEmbed()
         .setDescription(`Para alterar o nome do seu bot utilize: \`${config.prefix}nome [novo nome]\``)
         .setFooter('O mau uso deste comando pode resultar em ban ou warn')
         .setColor(config.color);
@@ -71,7 +80,7 @@ exports.run = (client, message, args) => {
         }
     })
   })
-  } else {
+  } else { // Se não possuir ele retornará isto...
     return message.channel.send(`O usuario ${member.tag} não possui um bot aprovado!`)
   }
   

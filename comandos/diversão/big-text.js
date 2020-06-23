@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => { // setando as bases
 
     let output = args.join(' '); // criando um argumento, no caso, o que o membro deseja falar
     if (!output) // caso não escreva, daremos o erro
-        return message.reply(':x: Voce deve me dizer um texto para deixar grande')
+        return message.reply('<:space_x:714329904547889172> » Voce deve me dizer um texto para deixar grande')
 
     let bigtext_arr = new Array(); // criaremos uma array
     for (let i = 0; i < output.length; i++) { // puxando numeros, para adicionarmos 

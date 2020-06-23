@@ -3,9 +3,9 @@ const db = require('quick.db');
 const config = require('../../config.json');
 
 exports.run = (client, message, args) => {
-  
+  //Mesma coisa dos outros comandos (Sim e tudo igual pq e a mesma base :V)
   let mensagem = args.slice(0).join(' ');
-  const erro = new Discord.RichEmbed()
+  const erro = new Discord.MessageEmbed()
   .setDescription(`Você deve inserir uma nova mensagem!`)
   .setColor(config.color)
   
@@ -13,8 +13,11 @@ exports.run = (client, message, args) => {
     message.channel.send(erro)
   }
   
-  const embed = new Discord.RichEmbed()
-  .setDescription(`Você deseja alterar o perfil do seu bot para:\n ${mensagem}`)
+  let add = db.get(`add_${message.author.id}`);
+  if (add === null) return message.reply(`Você deve possuir um bot para alterar o prefixo!`);
+  
+  const embed = new Discord.MessageEmbed()
+  .setDescription(`Você deseja alterar o prefixo de seu bot para:\n ${mensagem} ?`)
   .setColor(config.color);
   
   message.channel.send(embed).then(msg => {
@@ -31,7 +34,7 @@ exports.run = (client, message, args) => {
       if (reaction.emoji.id === '708102263901782028') {
         msg.delete();
         
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
         .setDescription(`Prefixo alterada com sucesso!\n\nUtilize SL!perfil novamente para ver a alteração`)
         .setColor(config.color);
         message.channel.send(embed);

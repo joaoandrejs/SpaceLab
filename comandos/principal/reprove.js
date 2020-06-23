@@ -2,20 +2,30 @@ const Discord = require('discord.js');
 const db = require('quick.db');
 const config = require('../../config.json');
 
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
   
-  let mensagem = args.slice(0).join(' ');
-  const erro = new Discord.RichEmbed()
-  .setDescription(`Você deve inserir uma nova mensagem!`)
-  .setColor(config.color)
+  /*
+  mesma coisa do aprove so que...
   
-  if (!mensagem) {
-    message.channel.send(erro)
+  
+  Quando o usuario e reprovado ele fica 1 dia sem poder enviar o bot para analise... ent ele será na db date.now igual no daily ou work!
+  */
+  
+  let member = await client.users.get(args[0])
+  if (!member) {
+    return message.channel.send('Vocẽ deve me indicar o id de um usuario valido!')
   }
   
-  const embed = new Discord.RichEmbed()
-  .setDescription(`Você deseja alterar o nome do seu bot para:\n ${mensagem}`)
-  .setColor(config.color)
+  let reper = db.get(`reper_${member.id}`);
+  if (reper === null) reper = 0;
+  if (reper === 1) return message.channel.send('Este usuario ja foi reprovado hoje!');
+  
+  
+  const embed = new Discord.MessageEmbed()
+  .setDescription(`O usuario: ${member.tag} foi reprovado na botlist?`)
+  .setFooter(`${member.tag}`)
+  .setTimestamp()
+  .setColor(config.color);
   
   message.channel.send(embed).then(msg => {
 
@@ -31,11 +41,13 @@ exports.run = (client, message, args) => {
       if (reaction.emoji.id === '708102263901782028') {
         msg.delete();
         
-        const embed = new Discord.RichEmbed()
-        .setDescription(`Nome do seu bot alterada com sucesso!\n\nUtilize SL!perfil novamente para ver a alteração`)
+        const embed = new Discord.MessageEmbed()
+        .setDescription(`O usuario: ${member.tag} foi definido como reprovado!`)
         .setColor(config.color);
+        message.channel.send(embed);
         
-        db.set(`bot_${message.author.id}`, mensagem);
+        db.add(`reprove_${member.id}`, 1)
+        db.set(`reper_${member.id}`, Date.now())
        } else {
          msg.delete()
          message.channel.send('Comando cancelado')
@@ -48,6 +60,6 @@ exports.run = (client, message, args) => {
     })
 }
 exports.help = {
-  name: 'nome',
-  aliases: []
+  name: 'reprove',
+  aliases: ['reprovado']
 }

@@ -5,7 +5,7 @@ const Discord = require("discord.js") // Puxando a livraria Discord.js
 exports.run = async (client, message, args) => {
 
 
-if (args.length === 0) return message.reply("escreva o que deseja que eu pesquise") // Caso o usuário não escreva nada para a pesquisa
+if (args.length === 0) return message.reply("<:space_x:714329904547889172> » escreva o que deseja que eu pesquise") // Caso o usuário não escreva nada para a pesquisa
 
 const source = 'https://raw.githubusercontent.com/discordjs/discord.js/docs/stable.json' // Link responsável pela pesquisa
 const queryString = qs.stringify({src: source, q: args.join(' ')}) // Aqui, iremos puxar o 'source' (link que puxamos acinma) junto com o argumento que o usuário pesquisou

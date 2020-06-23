@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
       if (!animated[0]) animated = ['Nenhum'] // caso não tenha nenhum emoji animado, daremos o mesmo
       if (!notAnimated[0]) notAnimated = ['Nenhum'] // a mesma coisa com os não animados
   
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
 
       .setDescription('Animados: \n' + animated.join(' ') + '\n\nNormais: \n' + notAnimated.join(' '))
 
