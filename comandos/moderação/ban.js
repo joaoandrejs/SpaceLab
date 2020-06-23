@@ -13,7 +13,7 @@ exports.run = (client, message, args) => {
        if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply(`:x: Você precisa da permissão de: **BAN_MEMBERS** para utilizar este comando`)
   
     // Agora, a embed de confirmação
-       let banembed = new Discord.RichEmbed()
+       let banembed = new Discord.MessageEmbed()
 
        .setTitle(`Confirmação`)
        .setDescription(`**${message.author.username}**, você realmente deseja aplicar esse banimento em **${membro.user.username}**?`)
