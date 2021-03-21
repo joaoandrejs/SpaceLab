@@ -6,5 +6,3 @@
 
 > **Utilização liberada dos códigos ( Lembre-se de deixar os créditos ).**
 > *Esta liberado a melhoria e modificação da edição de comandos.*
-
-> 
